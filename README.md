@@ -10,4 +10,6 @@ In this project we will be creating an End-to-End pipeline starting from loading
 6) Later we will create a Storage event trigger and triggered the entire pipeline. 
 7) We will check the entire pipeline run on Output section and in monitor, and we will check the movie recommendation email we receive on our Gmail at the end.
 
+![Project Flowchart](https://github.com/Satish-Gummadi/Azure-Movie_recommendation_data_engineering_project/assets/111731023/19f4142c-c5c4-4299-8241-ddf4a2446e3c)
+
 The whole process of creating the pipeline has been explained in the Project report attached. Please refer the same along with the project files attached.
