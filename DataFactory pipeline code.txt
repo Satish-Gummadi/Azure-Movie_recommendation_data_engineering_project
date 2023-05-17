@@ -15,7 +15,7 @@ modified code:
 
 to connect notebook activity to databricks, we need to generate a token in databricks and add access token onetime randon key to the linked service.
 
-Access token: dapia56c470df75b40264dcb1d4c2fb76453-3
+Access token: <access token from ADB user settings>
 
 
 
