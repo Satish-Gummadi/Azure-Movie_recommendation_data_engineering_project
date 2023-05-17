@@ -1,0 +1,64 @@
+
+
+if condition: 
+
+pipeline expression builder:
+
+@and(equals(activity('Get Movie').output.structure,activity('Get Movieschema').output.structure),equals(activity('Get Ratings').output.structure,activity('Get Ratingschema').output.structure))
+
+
+
+modified code:
+
+@and(and(and(equals(activity('Get Movie').output.structure,activity('Get Movieschema').output.structure),equals(activity('Get Ratings').output.structure[0],activity('Get Ratingschema').output.structure[0])),equals(activity('Get Ratings').output.structure[1],activity('Get Ratingschema').output.structure[1])), equals(activity('Get Ratings').output.structure[2],activity('Get Ratingschema').output.structure[2]))
+
+
+to connect notebook activity to databricks, we need to generate a token in databricks and add access token onetime randon key to the linked service.
+
+Access token: dapia56c470df75b40264dcb1d4c2fb76453-3
+
+
+
+Web, Logic App
+
+Logic App: Add (When a HTTP request is received) and (Send email)
+
+Under Request body JSON Schema of HTTP request app, add the structure :
+
+{
+    "type": "object",
+    "properties": {
+        "DataFactoryName": {
+            "type": "string"
+        },
+        "EmailTo": {
+            "type": "string"
+        },
+        "ErrorMessage": {
+            "type": "string"
+        },
+        "PipelineName": {
+            "type": "string"
+        },
+        "Subject": {
+            "type": "string"
+        }
+    }
+}
+
+
+HTTP POST URL after saving logic app:
+https://prod-17.eastus.logic.azure.com:443/workflows/fe482a4a9d62429d9eb660fec7aac7cf/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Dlut0erFOEPTvXbUrjhh89Etgq9Pdef4gdY2_2Nsjns
+
+
+
+
+Pipeline expression builder for web1:
+
+{"DataFactoryName": @{pipeline().DataFactory},"EmailTo": "satishgummadi8@students.vnit.ac.in","ErrorMessage": @{activity('movie recom notebook').output.runOutput},"PipelineName": @{pipeline().Pipeline},"Subject": "Movie recommendation mail" }
+
+
+Pipeline expression builder for web 2 (fail condition):
+
+{"DataFactoryName": @{pipeline().DataFactory},"EmailTo": "satishgummadi8@students.vnit.ac.in","ErrorMessage": "Pipeline faced some issue, Please check!!" ,"PipelineName": @{pipeline().Pipeline},"Subject": "Movie recommendation mail"}
+
